@@ -9,7 +9,8 @@
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Animal name</label>
-            <input type="text" class="form-control  @error('name') is-valid @enderror" id="name" name="name">
+            <input type="text" class="form-control  @error('name') is-valid @enderror" id="name" name="name"
+                value="{{ old('name') }}">
             @error('name')
                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     {{ $message }}
@@ -19,7 +20,8 @@
 
         <div class="mb-3">
             <label for="usia" class="form-label">Animal Age</label>
-            <input type="number" class="form-control @error('usia') is-invalid @enderror " id="usia" name="usia">
+            <input type="number" class="form-control @error('usia') is-invalid @enderror " id="usia" name="usia"
+                name="{{ old('usia') }}">
             @error('usia')
                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     {{ $message }}
@@ -78,7 +80,7 @@
         <div class="mb-3">
             <label for="description" class="form-label">Animal description</label>
             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                rows="10"></textarea>
+                rows="10">{{ old('description') }}</textarea>
             @error('description')
                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     {{ $message }}

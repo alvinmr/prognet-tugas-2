@@ -9,14 +9,14 @@
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Animal name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $animal->name }}">
+            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $animal->name) }}">
             @error('name')
                 {{ $message }}
             @enderror
         </div>
         <div class="mb-3">
             <label for="usia" class="form-label">Animal Age</label>
-            <input type="number" class="form-control" id="usia" name="usia" value="{{ $animal->usia }}">
+            <input type="number" class="form-control" id="usia" name="usia" value="{{ old('usia', $animal->usia) }}">
             @error('usia')
                 {{ $message }}
             @enderror
@@ -28,7 +28,7 @@
         <div class="mb-3 input-group">
             <label for="inputGroupFile02" class="form-label">Animal Photo</label>
             <div class="mb-3 input-group">
-                <input name="foto" type="file" class="form-control" id="inputGroupFile02" value="lalal">
+                <input name="foto" type="file" class="form-control" id="inputGroupFile02">
                 <label class="input-group-text" for="inputGroupFile02">Upload</label>
             </div>
             @error('foto')
@@ -69,7 +69,7 @@
         <div class="mb-3">
             <label for="description" class="form-label">Animal description</label>
             <textarea class="form-control" id="description" name="description"
-                rows="10">{{ $animal->description }}</textarea>
+                rows="10">{{ old('description', $animal->description) }}</textarea>
             @error('description')
                 {{ $message }}
             @enderror
