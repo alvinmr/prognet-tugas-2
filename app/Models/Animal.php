@@ -11,7 +11,7 @@ class Animal extends Model
     use HasFactory;
     protected $fillable = ['name', 'description', 'foto', 'jumlah_kaki', 'suara', 'usia'];
 
-    public static function getPossibleEnumValues($name)
+    public static function getEnumKey($name)
     {
         $instance = new static; // create an instance of the model to be able to get the table name
         $type = DB::select(DB::raw('SHOW COLUMNS FROM ' . $instance->getTable() . ' WHERE Field = "' . $name . '"'))[0]->Type;

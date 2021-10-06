@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AnimalController::class,'index']);
-Route::get('/new',[AnimalController::class,'newanimal']);
-Route::post('/savenew',[AnimalController::class,'savenewanimal']);
-Route::get('/{id}/detail',[AnimalController::class,'animaldetail']);
-Route::get('/{id}/edit',[AnimalController::class,'animaledit']);
-Route::post('/{id}/saveedit',[AnimalController::class,'saveedit']);
-Route::post('/{id}/delete',[AnimalController::class,'deleteanimal']);
+Route::get('/', [AnimalController::class, 'index']);
+Route::prefix('animal')->group(function () {
+    Route::get('/new', [AnimalController::class, 'newanimal'])->name('animal');
+    Route::post('/savenew', [AnimalController::class, 'savenewanimal'])->name('save');
+    Route::get('/{id}/detail', [AnimalController::class, 'animaldetail'])->name('detail');
+    Route::get('/{id}/edit', [AnimalController::class, 'animaledit'])->name('edit');
+    Route::post('/{id}/saveedit', [AnimalController::class, 'saveedit'])->name('save.edit');
+    Route::post('/{id}/delete', [AnimalController::class, 'deleteanimal'])->name('delete');
+});

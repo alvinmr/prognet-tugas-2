@@ -18,16 +18,13 @@ class AnimalController extends Controller
 
     public function newanimal()
     {
-        $animal_options_jumlah_kaki = Animal::getPossibleEnumValues('jumlah_kaki');
-        $animal_options_suara = Animal::getPossibleEnumValues('suara');
-        return view('animal.new', compact('animal_options_jumlah_kaki', 'animal_options_suara'));
+        $animalEnumJumlahKaki = Animal::getEnumKey('jumlah_kaki');
+        $animalEnumSuara = Animal::getEnumKey('suara');
+        return view('animal.new', compact('animalEnumJumlahKaki', 'animalEnumSuara'));
     }
 
     public function savenewanimal(Request $request)
     {
-        //Validasinya uda
-        //Sekarang mau upload file
-        //apus dulu gais
         $request->validate([
             'name' => 'required',
             'foto' => 'required|image',
@@ -52,37 +49,33 @@ class AnimalController extends Controller
 
     public function animaldetail($id)
     {
-        $animal_options_jumlah_kaki = Animal::getPossibleEnumValues('jumlah_kaki');
-        $animal_options_suara = Animal::getPossibleEnumValues('suara');
+        $animalEnumJumlahKaki = Animal::getEnumKey('jumlah_kaki');
+        $animalEnumSuara = Animal::getEnumKey('suara');
         $animal = Animal::find($id);
-        return view('animal.detail', compact('animal', 'animal_options_jumlah_kaki', 'animal_options_suara'));
+        return view('animal.detail', compact('animal', 'animalEnumJumlahKaki', 'animalEnumSuara'));
     }
 
     public function animaledit($id)
     {
-        $animal_options_jumlah_kaki = Animal::getPossibleEnumValues('jumlah_kaki');
-        $animal_options_suara = Animal::getPossibleEnumValues('suara');
+        $animalEnumJumlahKaki = Animal::getEnumKey('jumlah_kaki');
+        $animalEnumSuara = Animal::getEnumKey('suara');
         $animal = Animal::find($id);
-        return view('animal.edit', compact('animal', 'animal_options_jumlah_kaki', 'animal_options_suara'));
+        return view('animal.edit', compact('animal', 'animalEnumJumlahKaki', 'animalEnumSuara'));
     }
 
     public function saveedit(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'foto' => 'required|image',
-            'usia' => 'required',
-            'jumlah_kaki' => 'required|numeric',
-            'suara' => 'required',
-            'description' => 'required',
+            'foto' => 'image',
+            'jumlah_kaki' => 'numeric',
         ]);
 
         $animal = Animal::find($id);
-        if ($animal->foto) {
+        if ($request->hasFile('foto') && $animal->foto) {
             Storage::delete($animal->foto);
+            $nameFile = date('Ymdhis') . '.' . $request->foto->extension();
+            $animal->foto = $request->foto->storeAs('foto', $nameFile);
         }
-        $nameFile = date('Ymdhis') . '.' . $request->foto->extension();
-        $animal->foto = $request->foto->storeAs('foto', $nameFile);
         $animal->name = $request->name;
         $animal->usia = $request->usia;
         $animal->description = $request->description;

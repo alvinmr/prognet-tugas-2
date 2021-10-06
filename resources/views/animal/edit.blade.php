@@ -5,7 +5,7 @@
 @section('header', 'Edit animal')
 
 @section('contents')
-    <form action="/{{ $animal->id }}/saveedit" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('save.edit', $animal->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Animal name</label>
@@ -38,7 +38,7 @@
 
         <div class="mb-3">
             <label for="name" class="form-label">Number of Feet</label>
-            @foreach ($animal_options_jumlah_kaki as $item)
+            @foreach ($animalEnumJumlahKaki as $item)
                 <div class="form-check">
                     <input value="{{ $item }}" {{ $item == $animal->jumlah_kaki ? 'checked' : '' }}
                         class="form-check-input" type="radio" id="{{ $item }}" name="jumlah_kaki">
@@ -53,7 +53,7 @@
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Animal Voice</label>
-            @foreach ($animal_options_suara as $item)
+            @foreach ($animalEnumSuara as $item)
                 <div class="form-check">
                     <input value="{{ $item }}" {{ $item == $animal->suara ? 'checked' : '' }}
                         class="form-check-input" type="radio" id="{{ $item }}" name="suara">
