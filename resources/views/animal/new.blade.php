@@ -21,7 +21,7 @@
         <div class="mb-3">
             <label for="usia" class="form-label">Animal Age</label>
             <input type="number" class="form-control @error('usia') is-invalid @enderror " id="usia" name="usia"
-                name="{{ old('usia') }}">
+                value="{{ old('usia') }}">
             @error('usia')
                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     {{ $message }}
