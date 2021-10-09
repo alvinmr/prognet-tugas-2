@@ -71,8 +71,11 @@ class AnimalController extends Controller
         ]);
 
         $animal = Animal::find($id);
-        if ($request->hasFile('foto') && $animal->foto) {
+        if ($animal->foto) {
             Storage::delete($animal->foto);
+        }
+
+        if ($request->hasFile('foto')) {
             $nameFile = date('Ymdhis') . '.' . $request->foto->extension();
             $animal->foto = $request->foto->storeAs('foto', $nameFile);
         }
